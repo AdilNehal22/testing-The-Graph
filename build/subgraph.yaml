@@ -1,0 +1,29 @@
+specVersion: 0.0.2
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: myERC20
+    network: rinkeby
+    source:
+      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+      abi: myERC20
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - Transfer
+        - Account
+        - Token
+        - TokenBalance
+      abis:
+        - name: myERC20
+          file: myERC20\abis\myERC20.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: myERC20\myERC20.wasm
